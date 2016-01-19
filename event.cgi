@@ -109,16 +109,16 @@ if dowhat in ('Add', 'Update'):
         n = 0
         pete = tow.enum('person_event_type')
         pese = tow.enum('person_event_status')
-        pepse = tow.enum(person_event_payment_status')
+        pepse = tow.enum('person_event_payment_status')
         while n < m:
             i = t_e_p[n]
             if i['person_id'] == '' and i['old_person_id'] == '' and i['name'] == '':
                 del t_e_p[n]
                 m -= 1
                 continue
-            if i['type'] not in pete or (i['old_type'] != '' and i['old_type'] not in pete:
+            if i['type'] not in pete or (i['old_type'] != '' and i['old_type'] not in pete):
                 tow.add_error("Invalid type or old type in form input ", i)
-            if i['status'] not in pese or (i['old_status'] != '' and i['old_status'] not in pese:
+            if i['status'] not in pese or (i['old_status'] != '' and i['old_status'] not in pese):
                 tow.add_error("Invalid status or old status in form input ", i)
             if i['payment_status'] not in pepse or (i['old_payment_status'] != '' and i['old_payment_status'] not in pepse):
                 tow.add_error("Invalid payment or old payment in form input ", i)
@@ -302,7 +302,7 @@ if dowhat == 'Show':
 # FIXME?    ...
 elif dowhat != 'List':
     script_var = tow.var_list('attendee_types',tow.enum('person_event_type')) + \
- tow.var_list('attendee_statuses', tow.enum('person_event_status') + \
+ tow.var_list('attendee_statuses', tow.enum('person_event_status')) + \
  tow.var_list('attendee_payments', tow.enum('person_event_payment_status')) + \
  'var the_people=['
     sep = ''
