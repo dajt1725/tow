@@ -237,22 +237,22 @@ else:
 
 tow.start_page(title, style=tow.st)
 print '      <form action="' + tow.url('user') + '" method="POST">'
-print '        <span class="c1"><label for="us">' + n + 'User&nbsp;</label><span><input type="text"' + d + ' name="us" value="' + v + '"/></span></span><br>'
+print '        <span class="c1"><label for="us">' + n + 'User&nbsp;</label><span><input type="text"' + d + ' name="us" value="' + v + '"/></span></span>'
 print '        <span class="c2"><label for="np1">New Password&nbsp;</label><span><input type="password" name="np1" value=""/></span></span>\n' + \
- '        <span class="c2"><label for="np2">&nbsp;&nbsp;Reenter New Password&nbsp;</label><span><input type="password" name="np2" value=""/></span></span><br>\n' + \
+ '        <span class="c2"><label for="np2">&nbsp;&nbsp;Reenter New Password&nbsp;</label><span><input type="password" name="np2" value=""/></span></span>\n' + \
  '        <span class="c1"><label for="pm">Permissions&nbsp;</label><span><input type="text" name="pm" value="' + permissions + '"/></span></span>\n' + \
- '        <input type="hidden" name="opm" value="' + permissions_old + '" /><br>\n' + \
+ '        <input type="hidden" name="opm" value="' + permissions_old + '" />\n' + \
  '        <span class="c1"><label for="ex">Expire&nbsp;</label><span><input type="text" name="ex" value="' + expire + '"/></span></span>\n' + \
- '        <input type="hidden" name="oex" value="' + expire_old + '" /><br>' + \
+ '        <input type="hidden" name="oex" value="' + expire_old + '" />' + \
  '        <span class="c1"><label for="no">Notes&nbsp;</label><span><input type="text" name="no" value="' + tow.display_text(notes) + '"/></span></span>\n' + \
- '        <input type="hidden" name="ono" value="' + tow.display_text(notes_old) + '" /><br>'
+ '        <input type="hidden" name="ono" value="' + tow.display_text(notes_old) + '" />'
 print '        <span class="b3"><input type="submit" name="Do" value="New" /></span>'
 if new_user:
     print '        <span class="b3"><input type="submit" name="Do" value="Add" /></span>'
 else:
     print '        <span class="b3"><input type="submit" name="Do" value="Update" /></span>\n' + \
  '        <span class="b3"><input type=submit name=Do value="Delete"/></span>\n'
-print '      </form><br><br>'
+print '      </form><br style="clear:both;">'
 
 ##### Report Section #########################################################
 print '      <hr style="color:#c00;background-color:#c00;height:4"/>'
