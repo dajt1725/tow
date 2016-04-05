@@ -1,1 +1,7 @@
 These are the ToW python scripts as they are installed on the hosting provider.
+
+Don't forget to run
+
+semanage fcontext -a -t tmp_t '/local/tmp(/.*)?'
+semanage fcontext -a -t httpd_sys_script_exec_t '/var/www/tow(/.*)?'
+restorecon -R -v /var/www /local/tmp
