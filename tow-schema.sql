@@ -100,7 +100,7 @@ ALTER TABLE `tow_person_event`
 CREATE TABLE IF NOT EXISTS `tow_user` (
   `user` varchar(16) NOT NULL,
   `salt` int(10) unsigned NOT NULL,
-  `password` binary(32) NOT NULL,
+  `b64_passwd` char(44) NOT NULL default '********************************************',
   `permissions` set('debug','donation','event','person','user') CHARACTER SET utf8 NOT NULL DEFAULT '',
   `user_notes` text,
   `expiration` int(10) unsigned NOT NULL DEFAULT '3600',

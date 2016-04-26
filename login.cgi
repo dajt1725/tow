@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import sys, os, string, cgi, random, datetime, Cookie
+import base64, sys, os, string, cgi, random, datetime, Cookie
 sys.path.insert(0,'/home/temple24/python')
 import hashlib, tow
 
@@ -19,7 +19,7 @@ if tow.user is None or tow.user == '' or not password:
     sys.exit(0)
 
 
-tow.cur.execute("select salt, password, permissions, expiration from tow_user where user = %(user)s", {'user': tow.user})
+tow.cur.execute("select salt, b64_passwd, permissions, expiration from tow_user where user = %(user)s", {'user': tow.user})
 resp = tow.cur.fetchall()
 if len(resp) != 1:
     tow.not_logged_in('User ' + tow.user + ' not found.')
@@ -27,7 +27,7 @@ m = hashlib.sha256()
 m.update(str(resp[0][0]))
 if password:
     m.update(password)
-if m.digest() != resp[0][1]:
+if base64.b64encode(m.digest()) != resp[0][1]:
     tow.not_logged_in("Password mismatch")
 tow.permissions = resp[0][2]
 id = random.SystemRandom().randint(0,4294967296L)

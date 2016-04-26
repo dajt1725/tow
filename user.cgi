@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import sys, cgi, urllib, random, traceback
+import base64, sys, cgi, urllib, random, traceback
 sys.path.insert(0,'/home/temple24/python')
 import hashlib, mysql.connector, tow
 
@@ -11,7 +11,7 @@ def get_password_hash(pw, salt = None, r = random.SystemRandom()):
     m = hashlib.sha256()
     m.update(str(salt))
     m.update(pw)
-    return (m.digest(), salt)
+    return (base64.b64encode(m.digest()), salt)
 
 def clear_user():
     global user
@@ -34,7 +34,7 @@ def do_change():
     if new_password_1 != new_password_2 or new_password_1 == '' or new_password_1 is None:
         tow.add_error("Invalid new password")
         return
-    tow.cur.execute("select password, salt from tow_user where user = %(user)s", {'user': tow.user})
+    tow.cur.execute("select b64_passwd, salt from tow_user where user = %(user)s", {'user': tow.user})
     resp = tow.cur.fetchall()
     if len(resp) != 1:
         tow.add_error('Active user not found')
@@ -44,7 +44,7 @@ def do_change():
         tow.add_error("Invalid old password")
         return
     (password_hash, salt) = get_password_hash(new_password_1, None)
-    cmd = "update tow_user set password = %(password)s, salt = %(salt)s where user= %(user)s"
+    cmd = "update tow_user set b64_passwd = %(password)s, salt = %(salt)s where user= %(user)s"
     arg = {'password': password_hash, 'salt': salt, 'user': tow.user}
     tow.cur.execute(cmd, arg)
     tow.check_warnings(cmd, arg)
@@ -124,7 +124,7 @@ elif dowhat == 'Add':
     else:
         try:
             (password_hash, salt) = get_password_hash(new_password_1, None)
-            cmd = "insert into tow_user (user, password, salt, permissions, user_notes, expiration) values (%(user)s, %(password_hash)s, %(salt)s, %(permissions)s, %(notes)s, %(expire)s)"
+            cmd = "insert into tow_user (user, b64_passwd, salt, permissions, user_notes, expiration) values (%(user)s, %(password_hash)s, %(salt)s, %(permissions)s, %(notes)s, %(expire)s)"
             arg = {'user': user, 'password_hash': password_hash, 'salt': salt, 'permissions': permissions, 'notes': notes, 'expire': tow.store_timedelta(expire)}
             tow.cur.execute(cmd, arg)
             tow.check_warnings(cmd, arg)
@@ -141,7 +141,7 @@ elif dowhat == 'Update':
         if new_password_1 is not None and new_password_1 != '':
             try:
                 (password_hash, salt) = get_password_hash(new_password_1, None)
-                cmd = "update tow_user set password = %(password)s, salt = %(salt)s where user= %(user)s"
+                cmd = "update tow_user set b64_passwd = %(password)s, salt = %(salt)s where user= %(user)s"
                 arg = {'password': password_hash, 'salt': salt, 'user': user}
                 tow.cur.execute(cmd, arg)
                 tow.check_warnings(cmd, arg)
