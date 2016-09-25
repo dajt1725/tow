@@ -9,7 +9,7 @@ sys.stdin = codecs.getreader('utf-8')(sys.stdin)
 sys.stdout = codecs.getwriter('utf8')(sys.stdout)
 sys.stderr = codecs.getwriter('utf8')(sys.stderr)
 
-if sys.version.startswith('2.7.10'):
+if sys.version.startswith('2.7.12'):
     logfile = open('/local/tmp/db.log','a')
     _url_h = '/tow/'
     _url_t = '.cgi'
