@@ -44,6 +44,7 @@ if 'person' in tow.permissions:
         <option value="fname">First Name</option>
         <option value="lname">Last Name</option>
         <option value="cname">Craft Name</option>
+        <option value="contact">Contact Address</option>
         <option value="dob">Date of Birth</option>
         <option value="gender">Gender</option>
         <option value="status">Membership Status</option>

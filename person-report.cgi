@@ -40,6 +40,10 @@ else:
         clause += conj + 'craft_name like %(value)s'
         conj = a
         label = 'whose craft name is ' + value
+    elif field == 'contact':
+        clause += conj + 'address like %(value)s'
+        conj = a
+        label = 'whose contact address includes ' + value
     elif field == 'dob':
         clause += conj + 'date_of_birth = cast(%(value)s as date)'
         conj = a
